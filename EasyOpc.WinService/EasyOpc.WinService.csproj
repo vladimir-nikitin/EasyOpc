@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E607D19-7A8F-44A3-B49F-46CA9C6791B4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EasyOpc.WinService</RootNamespace>
+    <AssemblyName>EasyOpcWinService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Common\Com.cs" />
+    <Compile Include="Controllers\OpcGroupsController.cs" />
+    <Compile Include="Controllers\OpcItemsController.cs" />
+    <Compile Include="Controllers\OpcServersController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
+    <Compile Include="Hubs\LogHub.cs" />
+    <Compile Include="Hubs\OpcGroupHub.cs" />
+    <Compile Include="Hubs\OpcGroupHubConnection.cs" />
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.Designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service.Designer.cs">
+      <DependentUpon>Service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="LocalDataBase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Install.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="UnInstall.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Constant\EasyOpc.Common.Constant.csproj">
+      <Project>{4F233B46-8507-4282-B378-76BC22E29F56}</Project>
+      <Name>EasyOpc.Common.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Opc\EasyOpc.Common.Opc.csproj">
+      <Project>{c6ea1d1a-d831-414b-8e11-5806dc2bc927}</Project>
+      <Name>EasyOpc.Common.Opc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Types\EasyOpc.Common.Types.csproj">
+      <Project>{3BBF7140-6C8A-4314-AA50-3FB871A33EB1}</Project>
+      <Name>EasyOpc.Common.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Base\EasyOpc.Contracts.Base.csproj">
+      <Project>{f24185f1-9849-4f4d-8288-d12560b0a03e}</Project>
+      <Name>EasyOpc.Contracts.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Opc\EasyOpc.Contracts.Opc.csproj">
+      <Project>{48afb49a-7c09-43f4-9af7-546841941a4c}</Project>
+      <Name>EasyOpc.Contracts.Opc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Settings\EasyOpc.Contracts.Settings.csproj">
+      <Project>{047eb886-99a6-4f64-8504-d08f854329f6}</Project>
+      <Name>EasyOpc.Contracts.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Works\EasyOpc.Contracts.Works.csproj">
+      <Project>{466865ad-5c70-4fbc-9b68-a0bb52dee86e}</Project>
+      <Name>EasyOpc.Contracts.Works</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Configuration.Contract\EasyOpc.WinService.Core.Configuration.Contract.csproj">
+      <Project>{C99F41BD-2AEE-4539-9EEE-A71AA5DBC8BD}</Project>
+      <Name>EasyOpc.WinService.Core.Configuration.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Configuration\EasyOpc.WinService.Core.Configuration.csproj">
+      <Project>{A4A2BF35-92A0-4B23-8A40-FBF9A7E5BBEF}</Project>
+      <Name>EasyOpc.WinService.Core.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Logger.Contract\EasyOpc.WinService.Core.Logger.Contract.csproj">
+      <Project>{BBAB743C-D9D4-4415-A143-83EE82F72F9F}</Project>
+      <Name>EasyOpc.WinService.Core.Logger.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Logger\EasyOpc.WinService.Core.Logger.csproj">
+      <Project>{493473B5-5364-4A2A-BEF0-073E571858DB}</Project>
+      <Name>EasyOpc.WinService.Core.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Repository.Base\EasyOpc.WinService.Core.Repository.Base.csproj">
+      <Project>{E74C293B-B709-4514-8289-3341EC70C053}</Project>
+      <Name>EasyOpc.WinService.Core.Repository.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Service.Base\EasyOpc.WinService.Core.Service.Base.csproj">
+      <Project>{75B850CB-E05E-402D-B291-D6CAA8E9F215}</Project>
+      <Name>EasyOpc.WinService.Core.Service.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Worker.Contract\EasyOpc.WinService.Core.Worker.Contract.csproj">
+      <Project>{366B7520-DFF0-48F9-BB08-A02D0AD78612}</Project>
+      <Name>EasyOpc.WinService.Core.Worker.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Worker.Model\EasyOpc.WinService.Core.Worker.Model.csproj">
+      <Project>{BC988D10-37B2-428C-B49C-5DD1815CE654}</Project>
+      <Name>EasyOpc.WinService.Core.Worker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Contract\EasyOpc.WinService.Modules.Opc.Connectors.Contract.csproj">
+      <Project>{07B63BA5-133F-4EC8-BCC6-2426EAB20D89}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Da\EasyOpc.WinService.Modules.Opc.Connectors.Da.csproj">
+      <Project>{1f714d5d-4877-4153-96b8-adb539117a0f}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Da</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Ua\EasyOpc.WinService.Modules.Opc.Connectors.Ua.csproj">
+      <Project>{313b3ac5-f7c5-4952-8efa-57020f6ca18e}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Ua</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors\EasyOpc.WinService.Modules.Opc.Connectors.csproj">
+      <Project>{74fdfd51-2f52-498c-8350-906bc81de2cb}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Connectors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository.Contract\EasyOpc.WinService.Modules.Opc.Repository.Contract.csproj">
+      <Project>{1A13FBF4-5532-4D9F-8B48-C0DE3E6E6602}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Repository.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository.Model\EasyOpc.WinService.Modules.Opc.Repository.Model.csproj">
+      <Project>{48E802D7-56E9-4C4A-8B50-FC95E1457CB9}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Repository.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository\EasyOpc.WinService.Modules.Opc.Repository.csproj">
+      <Project>{75961F85-3A94-40A3-9B80-9574D053CE4B}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service.Contract\EasyOpc.WinService.Modules.Opc.Service.Contract.csproj">
+      <Project>{86b8b12a-c4b0-43d3-b7ed-ef15d17bf051}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Service.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service.Model\EasyOpc.WinService.Modules.Opc.Service.Model.csproj">
+      <Project>{0A0F2ACA-C288-4EEA-8F6D-2B8A87E15CE6}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Service.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service\EasyOpc.WinService.Modules.Opc.Service.csproj">
+      <Project>{EE13D12C-8EDD-4946-885C-55F4029E7D87}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Workers\EasyOpc.WinService.Modules.Opc.Workers.Export\EasyOpc.WinService.Modules.Opc.Workers.Export.csproj">
+      <Project>{b4a0651e-bf80-425b-8918-d04076fe681f}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Workers.Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Workers\EasyOpc.WinService.Modules.Opc.Workers.History\EasyOpc.WinService.Modules.Opc.Workers.History.csproj">
+      <Project>{ac9b0f4f-6362-4434-aec4-2a2e01da32e6}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Workers.History</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository.Contract\EasyOpc.WinService.Modules.Setting.Repository.Contract.csproj">
+      <Project>{D0EF547B-C437-4E6A-B332-2F63789D5AAB}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Repository.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository.Model\EasyOpc.WinService.Modules.Setting.Repository.Model.csproj">
+      <Project>{2915744D-7FED-4EC1-9F04-64540A3C9C2B}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Repository.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository\EasyOpc.WinService.Modules.Setting.Repository.csproj">
+      <Project>{548AB2BD-3DB7-4745-819C-1EA0A2575FB4}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service.Contract\EasyOpc.WinService.Modules.Setting.Service.Contract.csproj">
+      <Project>{6283CDC4-20C0-4515-850D-9EDA52D60E0E}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Service.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service.Model\EasyOpc.WinService.Modules.Setting.Service.Model.csproj">
+      <Project>{C6DD8BBD-39CF-46E8-96D3-C0CEF0AFCB5E}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Service.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service\EasyOpc.WinService.Modules.Setting.Service.csproj">
+      <Project>{5F7BE8B2-6931-418E-AC0E-44E99F97B2CB}</Project>
+      <Name>EasyOpc.WinService.Modules.Setting.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository.Contract\EasyOpc.WinService.Modules.Work.Repository.Contract.csproj">
+      <Project>{B6EB6BA9-41A3-4621-9556-6996717480E9}</Project>
+      <Name>EasyOpc.WinService.Modules.Work.Repository.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository.Model\EasyOpc.WinService.Modules.Work.Repository.Model.csproj">
+      <Project>{2C35BF53-07B6-466C-9438-F491EC491DA0}</Project>
+      <Name>EasyOpc.WinService.Modules.Work.Repository.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository\EasyOpc.WinService.Modules.Work.Repository.csproj">
+      <Project>{4BF30EC4-A75E-4BC9-8D3F-85B694F5C722}</Project>
+      <Name>EasyOpc.WinService.Modules.Work.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Service.Contract\EasyOpc.WinService.Modules.Work.Service.Contract.csproj">
+      <Project>{39958A18-4AB7-4C09-9F9F-0BB7D8337B4B}</Project>
+      <Name>EasyOpc.WinService.Modules.Work.Service.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Service\EasyOpc.WinService.Modules.Work.Service.csproj">
+      <Project>{DF79100C-09FE-4368-86AD-6D87F1C65967}</Project>
+      <Name>EasyOpc.WinService.Modules.Work.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cors, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cors.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.1.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Diagnostics, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Diagnostics.2.1.0\lib\net40\Microsoft.Owin.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.2.1.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.2.1.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.SelfHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.7\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.WebApi, Version=5.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.WebAPI.5.4.0\lib\net45\Unity.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.3\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.3\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
