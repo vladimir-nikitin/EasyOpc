@@ -48,7 +48,7 @@ export const LogSettings = () => {
           disabled={!serviceMode}
           value={logFilePath} 
           onClick={serviceMode ? selectLogFilePath : null} 
-          onChange={(event) => serviceMode && editLogFilePath(event.target.value)} 
+          onChange={(event) => {} /*serviceMode && editLogFilePath(event.target.value)*/} 
           />
     </div>
   );

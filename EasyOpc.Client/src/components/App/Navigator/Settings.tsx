@@ -10,13 +10,11 @@ import { Omit } from "@material-ui/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
 import { setSelectedItem } from "../../../store/windowSlice";
-import { SETTINGS_TYPE } from "../../../constans/common";
+import { SETTINGS_TYPE } from "../../../constans/settings";
 
-export interface SettingsProps
-  extends Omit<DrawerProps, "classes">,
-    WithStyles<any> {}
+type SettingsProps = Omit<DrawerProps, "classes"> & WithStyles<any>;
 
-export default function Settings(props: SettingsProps) {
+export const Settings = (props: SettingsProps) => {
   const { classes, ...other } = props;
   const { selectedItem } = useSelector((state: AppState) => state.window);
   useEffect(() => {}, [selectedItem]);

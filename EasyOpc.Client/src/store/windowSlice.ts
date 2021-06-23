@@ -1,19 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { OpcGroup, OpcServer } from "./opcSlice";
-
+import { OpcDaGroupData, OpcDaServerData } from "../types/opc.da";
+import { OpcUaGroupData, OpcUaServerData } from "../types/opc.ua";
 
 export type SelectedItem = {
-    type: 'OpcServer',
-    item: OpcServer
-} | {
-    type: 'OpcGroup',
-    item: OpcGroup
-} | {
     type: 'Settings',
     item?: null
 } | {
     type: 'Logs',
     item?: null
+} | {
+    type: 'OPC_DA_SERVER',
+    item?: OpcDaServerData
+} | {
+    type: 'OPC_DA_GROUP',
+    item?: OpcDaGroupData
+} | {
+    type: 'OPC_UA_SERVER',
+    item?: OpcUaServerData
+} | {
+    type: 'OPC_UA_GROUP',
+    item?: OpcUaGroupData
 }
 
 export type WindowState = {

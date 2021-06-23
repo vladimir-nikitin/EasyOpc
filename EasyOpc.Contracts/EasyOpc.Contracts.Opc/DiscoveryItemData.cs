@@ -19,6 +19,8 @@ namespace EasyOpc.Contracts.Opc
 
         public bool HasChildren { get; set; }
 
+        public bool HasValue { get; set; }
+
         public IEnumerable<DiscoveryItemData> Childs { get; set; }
     }
 }

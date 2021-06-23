@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../store/store";
-import OpcGroup from "../Opc/OpcGroup/OpcGroup";
-import OpcServer from "../Opc/OpcServer/OpcServer";
 import { WithStyles } from "@material-ui/core/styles";
-import { OPC_GROUP_TYPE, OPC_SERVER_TYPE } from "../../constans/opc";
-import { LOGS_TYPE, SETTINGS_TYPE } from "../../constans/common";
 import Settings from "../Settings/Settings";
 import { Logs } from "../Logs/Logs";
+import { SETTINGS_TYPE } from "../../constans/settings";
+import { LOGS_TYPE } from "../../constans/logs";
+import { OPC_DA_GROUP_TYPE, OPC_DA_SERVER_TYPE } from "../../constans/opc.da";
+import { OpcDaServer } from "../opc.da/OpcDaServer";
+import { OPC_UA_GROUP_TYPE, OPC_UA_SERVER_TYPE } from "../../constans/opc.ua";
+import { OpcUaServer } from "../opc.ua/OpcUaServer";
+import { OpcDaGroup } from "../opc.da/OpcDaGroup/OpcDaGroup";
+import { OpcUaGroup } from "../opc.ua/OpcUaGroup/OpcUaGroup";
 
-export interface ContentProps extends WithStyles {}
-
-function Content(props: ContentProps) {
+export const Content = (props: WithStyles) => {
   console.log(`[App][Content] mount component`);
   const selectedItem = useSelector((state: AppState) => state.window.selectedItem);
 
@@ -20,14 +22,16 @@ function Content(props: ContentProps) {
 
   if (!selectedItem) return <></>;
 
-  if (selectedItem.type === OPC_SERVER_TYPE)
-    return <OpcServer opcServer={selectedItem.item} {...props} />;
-  else if (selectedItem.type === OPC_GROUP_TYPE)
-    return <OpcGroup opcServerId={selectedItem.item.opcServerId} opcGroupId={selectedItem.item.id} />;
-  else if (selectedItem.type === SETTINGS_TYPE) return <Settings />;
+  if (selectedItem.type === SETTINGS_TYPE) return <Settings />;
   else if (selectedItem.type === LOGS_TYPE) return <Logs />;
+  else if (selectedItem.type === OPC_DA_SERVER_TYPE)
+    return <OpcDaServer opcDaServerId={selectedItem.item.id} {...props} />;
+  else if (selectedItem.type === OPC_DA_GROUP_TYPE)
+    return <OpcDaGroup opcDaServerId={selectedItem.item.opcDaServerId} opcDaGroupId={selectedItem.item.id} {...props} />;
+  else if (selectedItem.type === OPC_UA_SERVER_TYPE)
+    return <OpcUaServer opcUaServerId={selectedItem.item.id} {...props} />;
+  else if (selectedItem.type === OPC_UA_GROUP_TYPE)
+    return <OpcUaGroup opcUaServerId={selectedItem.item.opcUaServerId} opcUaGroupId={selectedItem.item.id} {...props} />;
 
   return <></>;
 }
-
-export default Content;

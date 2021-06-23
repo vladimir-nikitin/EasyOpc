@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F275554E-9125-4DE4-BF81-4A9A74194170}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EasyOpc.WinService.Modules.Settings.Services</RootNamespace>
+    <AssemblyName>EasyOpc.WinService.Modules.Settings.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EasyOpc.Common\EasyOpc.Common.Types\EasyOpc.Common.Types.csproj">
+      <Project>{3BBF7140-6C8A-4314-AA50-3FB871A33EB1}</Project>
+      <Name>EasyOpc.Common.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Logger.Contract\EasyOpc.WinService.Core.Logger.Contract.csproj">
+      <Project>{BBAB743C-D9D4-4415-A143-83EE82F72F9F}</Project>
+      <Name>EasyOpc.WinService.Core.Logger.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Repository.Base\EasyOpc.WinService.Core.Repository.Base.csproj">
+      <Project>{E74C293B-B709-4514-8289-3341EC70C053}</Project>
+      <Name>EasyOpc.WinService.Core.Repository.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Repository.Model\EasyOpc.WinService.Core.Repository.Model.csproj">
+      <Project>{E224C25C-D0A6-4F2A-8416-1901FA9A74E7}</Project>
+      <Name>EasyOpc.WinService.Core.Repository.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Service.Base\EasyOpc.WinService.Core.Service.Base.csproj">
+      <Project>{75B850CB-E05E-402D-B291-D6CAA8E9F215}</Project>
+      <Name>EasyOpc.WinService.Core.Service.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Repositories.Contracts\EasyOpc.WinService.Modules.Settings.Repositories.Contracts.csproj">
+      <Project>{13012883-F184-44F6-A2D8-E8355EA73597}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Repositories.Models\EasyOpc.WinService.Modules.Settings.Repositories.Models.csproj">
+      <Project>{24759ADA-7F5B-4F63-8F7C-300583AF8493}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Services.Contracts\EasyOpc.WinService.Modules.Settings.Services.Contracts.csproj">
+      <Project>{676B2FE2-4AFE-4D93-8E7D-34FF166A5E28}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Services.Models\EasyOpc.WinService.Modules.Settings.Services.Models.csproj">
+      <Project>{1EADB7CD-13D1-4A3D-8F6B-BBDAA8D21BDF}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,4 +1,4 @@
-﻿using EasyOpc.Common.Extension;
+﻿using EasyOpc.Common.Extensions;
 using EasyOpc.Common.Types;
 using EasyOpc.WinService.Core.Logger.Contract;
 using EasyOpc.WinService.Core.Repository.Model;

@@ -4,8 +4,7 @@ import { initApp } from "../../functions/app";
 import { startWinService } from "../../functions/common";
 import { AppState } from "../../store/store";
 import { Loader } from "../controls/Loder";
-import "./App.css";
-import Paperbase from "./Paperbase";
+import { Paperbase } from "./Paperbase";
 import {enableMapSet} from "immer"
 
 const AppLoader = () => {
@@ -23,11 +22,12 @@ const AppLoader = () => {
 export const App = () => {
   console.log(`[App] mount component`);
 
+  enableMapSet();
+
   const dispath = useDispatch();
   const isInit = useSelector((state: AppState) => state.window.isInit);
 
   startWinService();
-  enableMapSet();
   
   useEffect(()=> { 
     console.log(`[App][useEffect] dispath changed`);

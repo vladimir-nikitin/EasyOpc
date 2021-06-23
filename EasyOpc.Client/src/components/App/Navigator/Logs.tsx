@@ -10,13 +10,11 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
 import { setSelectedItem } from "../../../store/windowSlice";
-import { LOGS_TYPE } from "../../../constans/common";
+import { LOGS_TYPE } from "../../../constans/logs";
 
-export interface LogsProps
-  extends Omit<DrawerProps, "classes">,
-    WithStyles<any> {}
+type LogsProps = Omit<DrawerProps, "classes"> & WithStyles<any>;
 
-export default function Logs(props: LogsProps) {
+export const Logs = (props: LogsProps) => {
   const { classes, ...other } = props;
   const { selectedItem } = useSelector((state: AppState) => state.window);
 

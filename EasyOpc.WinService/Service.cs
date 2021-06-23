@@ -1,4 +1,4 @@
-﻿using EasyOpc.Common.Constant;
+﻿using EasyOpc.Common.Constants;
 using Microsoft.Owin.Hosting;
 using System;
 using System.ServiceProcess;

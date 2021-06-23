@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { SimpleDialog } from "./SimpleDialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
-export type SimpleConfirmDialogProps = {
+type SimpleConfirmDialogProps = {
   isOpen: boolean;
   header: string;
   text: string;
@@ -10,7 +10,7 @@ export type SimpleConfirmDialogProps = {
   cancelHandle: () => void;
 };
 
-export const SimpleConfirmDialog: FC<SimpleConfirmDialogProps> = (props) => {
+export const SimpleConfirmDialog = (props: SimpleConfirmDialogProps) => {
   const textStyle = { margin: 60 };
   return (
     <SimpleDialog

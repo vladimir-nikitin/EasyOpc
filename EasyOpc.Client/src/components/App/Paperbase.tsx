@@ -10,13 +10,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-import Navigator from "./Navigator/Navigator";
-import Content from "./Content";
-import Header from "./Header";
+import { Navigator } from "./Navigator/Navigator";
+import { Header } from "./Header";
 import { SITE_URL } from "../../constans/common";
 import { openUrl } from "../../functions/common";
+import { Content } from "./Content";
 
-function Copyright() {
+const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
@@ -172,9 +172,9 @@ const styles = createStyles({
   },
 });
 
-export interface PaperbaseProps extends WithStyles<typeof styles> {}
+type PaperbaseProps = WithStyles<typeof styles>;
 
-function Paperbase(props: PaperbaseProps) {
+export const Paperbase = withStyles(styles)((props: PaperbaseProps) => {
   console.log(`[App][Paperbase] mount component`);
 
   const { classes } = props;
@@ -201,6 +201,4 @@ function Paperbase(props: PaperbaseProps) {
       </div>
     </ThemeProvider>
   );
-}
-
-export default withStyles(styles)(Paperbase);
+});

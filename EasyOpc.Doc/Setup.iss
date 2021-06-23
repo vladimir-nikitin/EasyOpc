@@ -12,7 +12,7 @@
 ; Имя приложения
 #define   Name       "EasyOPC"
 ; Версия приложения
-#define   Version    "12.1.6"
+#define   Version    "12.2.3"
 ; Фирма-разработчик
 #define   Publisher  "EasyOPC"
 ; Сафт фирмы разработчика

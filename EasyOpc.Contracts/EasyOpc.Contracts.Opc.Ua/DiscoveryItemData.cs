@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace EasyOpc.Contracts.Opc.Ua
+{
+    public class DiscoveryItemData
+    {
+        public Guid OpcUaServerId { get; set; }
+
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string NodeId { get; set; }
+
+        public bool HasChildren { get; set; }
+
+        public bool HasValue { get; set; }
+
+        public IEnumerable<DiscoveryItemData> Childs { get; set; }
+    }
+}

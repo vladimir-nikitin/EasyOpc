@@ -1,13 +1,14 @@
-
-import { createOpcApi } from "./opcApi";
-import { createSettingApi } from "./settingApi";
-import { createWorkApi } from "./workApi";
+import { createOpcDaApi } from "./opcDaApi";
+import { createOpcUaApi } from "./opcUaApi";
+import { createSettingsApi } from "./settingsApi";
+import { createWorksApi } from "./worksApi";
 
 export const createApi = (fetcher: typeof fetch) => (
     {
-      opc: createOpcApi(fetcher),
-      work: createWorkApi(fetcher),
-      setting: createSettingApi(fetcher),
+      opcDa: createOpcDaApi(fetcher),
+      opcUa: createOpcUaApi(fetcher),
+      settings: createSettingsApi(fetcher),
+      works: createWorksApi(fetcher),
     }
   );
 

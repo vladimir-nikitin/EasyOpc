@@ -1,4 +1,4 @@
-﻿using EasyOpc.Common.Constant;
+﻿using EasyOpc.Common.Constants;
 using System;
 using System.ComponentModel;
 using System.Configuration.Install;

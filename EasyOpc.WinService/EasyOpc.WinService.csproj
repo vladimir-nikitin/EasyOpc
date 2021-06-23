@@ -101,14 +101,26 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Common\Com.cs" />
-    <Compile Include="Controllers\OpcGroupsController.cs" />
-    <Compile Include="Controllers\OpcItemsController.cs" />
-    <Compile Include="Controllers\OpcServersController.cs" />
+    <Compile Include="Controllers\OpcDaGroupsController.cs" />
+    <Compile Include="Controllers\OpcUaGroupWorksController.cs" />
+    <Compile Include="Controllers\OpcDaGroupWorksController.cs" />
+    <Compile Include="Controllers\OpcUaGroupsController.cs" />
+    <Compile Include="Controllers\OpcDaItemsController.cs" />
+    <Compile Include="Controllers\OpcUaItemsController.cs" />
+    <Compile Include="Controllers\OpcDaServersController.cs" />
+    <Compile Include="Controllers\OpcUaServersController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Hubs\LogHub.cs" />
-    <Compile Include="Hubs\OpcGroupHub.cs" />
-    <Compile Include="Hubs\OpcGroupHubConnection.cs" />
+    <Compile Include="Hubs\LogHubConnection.cs" />
+    <Compile Include="Hubs\OpcDaGroupHub.cs" />
+    <Compile Include="Hubs\OpcUaGroupHub.cs" />
+    <Compile Include="Hubs\OpcDaGroupHubConnection.cs" />
+    <Compile Include="Hubs\OpcUaGroupHubConnection.cs" />
+    <Compile Include="Hubs\OpcDaServerHub.cs" />
+    <Compile Include="Hubs\OpcUaServerHub.cs" />
+    <Compile Include="Hubs\OpcDaServerHubConnection.cs" />
+    <Compile Include="Hubs\OpcUaServerHubConnection.cs" />
     <Compile Include="Installer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -127,25 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="LocalDataBase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Install.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
-    <None Include="UnInstall.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Constant\EasyOpc.Common.Constant.csproj">
-      <Project>{4F233B46-8507-4282-B378-76BC22E29F56}</Project>
-      <Name>EasyOpc.Common.Constant</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Opc\EasyOpc.Common.Opc.csproj">
-      <Project>{c6ea1d1a-d831-414b-8e11-5806dc2bc927}</Project>
-      <Name>EasyOpc.Common.Opc</Name>
+    <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Constants\EasyOpc.Common.Constants.csproj">
+      <Project>{0EA48A38-F5C6-444F-A681-D30932F6D761}</Project>
+      <Name>EasyOpc.Common.Constants</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyOpc.Common\EasyOpc.Common.Types\EasyOpc.Common.Types.csproj">
       <Project>{3BBF7140-6C8A-4314-AA50-3FB871A33EB1}</Project>
@@ -155,17 +154,17 @@
       <Project>{f24185f1-9849-4f4d-8288-d12560b0a03e}</Project>
       <Name>EasyOpc.Contracts.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Opc\EasyOpc.Contracts.Opc.csproj">
-      <Project>{48afb49a-7c09-43f4-9af7-546841941a4c}</Project>
-      <Name>EasyOpc.Contracts.Opc</Name>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Opc.Da\EasyOpc.Contracts.Opc.Da.csproj">
+      <Project>{B64608D0-25AB-43F8-AB6C-05B624747348}</Project>
+      <Name>EasyOpc.Contracts.Opc.Da</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Opc.Ua\EasyOpc.Contracts.Opc.Ua.csproj">
+      <Project>{055DC2E1-B6F2-4D83-9976-8FA7747E371F}</Project>
+      <Name>EasyOpc.Contracts.Opc.Ua</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Settings\EasyOpc.Contracts.Settings.csproj">
       <Project>{047eb886-99a6-4f64-8504-d08f854329f6}</Project>
       <Name>EasyOpc.Contracts.Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.Contracts\EasyOpc.Contracts.Works\EasyOpc.Contracts.Works.csproj">
-      <Project>{466865ad-5c70-4fbc-9b68-a0bb52dee86e}</Project>
-      <Name>EasyOpc.Contracts.Works</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Configuration.Contract\EasyOpc.WinService.Core.Configuration.Contract.csproj">
       <Project>{C99F41BD-2AEE-4539-9EEE-A71AA5DBC8BD}</Project>
@@ -191,105 +190,105 @@
       <Project>{75B850CB-E05E-402D-B291-D6CAA8E9F215}</Project>
       <Name>EasyOpc.WinService.Core.Service.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Worker.Contract\EasyOpc.WinService.Core.Worker.Contract.csproj">
-      <Project>{366B7520-DFF0-48F9-BB08-A02D0AD78612}</Project>
-      <Name>EasyOpc.WinService.Core.Worker.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.WorksExecutionService.Contract\EasyOpc.WinService.Core.WorksExecutionService.Contract.csproj">
+      <Project>{4F88776F-570B-4C78-A5FB-04AE90F0E746}</Project>
+      <Name>EasyOpc.WinService.Core.WorksExecutionService.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Worker.Model\EasyOpc.WinService.Core.Worker.Model.csproj">
-      <Project>{BC988D10-37B2-428C-B49C-5DD1815CE654}</Project>
-      <Name>EasyOpc.WinService.Core.Worker.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.WorksExecutionService\EasyOpc.WinService.Core.WorksExecutionService.csproj">
+      <Project>{02D80280-884D-469F-8654-56ECDAB90CF8}</Project>
+      <Name>EasyOpc.WinService.Core.WorksExecutionService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Contract\EasyOpc.WinService.Modules.Opc.Connectors.Contract.csproj">
-      <Project>{07B63BA5-133F-4EC8-BCC6-2426EAB20D89}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.WorksService.Contract\EasyOpc.WinService.Core.WorksService.Contract.csproj">
+      <Project>{21ED35A8-1B66-4CBD-B777-C8B29C7D23C5}</Project>
+      <Name>EasyOpc.WinService.Core.WorksService.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Da\EasyOpc.WinService.Modules.Opc.Connectors.Da.csproj">
-      <Project>{1f714d5d-4877-4153-96b8-adb539117a0f}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Da</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Connector.Contract\EasyOpc.WinService.Modules.Opc.Da.Connector.Contract.csproj">
+      <Project>{9D2014F0-60FC-481E-A111-4A00671CA640}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Connector.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors.Ua\EasyOpc.WinService.Modules.Opc.Connectors.Ua.csproj">
-      <Project>{313b3ac5-f7c5-4952-8efa-57020f6ca18e}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Connectors.Ua</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Connector\EasyOpc.WinService.Modules.Opc.Da.Connector.csproj">
+      <Project>{A1B7265C-1354-4ACB-BA46-F119D894F8C5}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Connector</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Connectors\EasyOpc.WinService.Modules.Opc.Connectors\EasyOpc.WinService.Modules.Opc.Connectors.csproj">
-      <Project>{74fdfd51-2f52-498c-8350-906bc81de2cb}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Connectors</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Repositories.Contracts\EasyOpc.WinService.Modules.Opc.Da.Repositories.Contracts.csproj">
+      <Project>{A6105A3D-4D54-460A-9E6F-445A6AB1F5BE}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Repositories.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository.Contract\EasyOpc.WinService.Modules.Opc.Repository.Contract.csproj">
-      <Project>{1A13FBF4-5532-4D9F-8B48-C0DE3E6E6602}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Repository.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Repositories.Models\EasyOpc.WinService.Modules.Opc.Da.Repositories.Models.csproj">
+      <Project>{353CEEC6-D786-42EB-B366-A41C1266F7DE}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Repositories.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository.Model\EasyOpc.WinService.Modules.Opc.Repository.Model.csproj">
-      <Project>{48E802D7-56E9-4C4A-8B50-FC95E1457CB9}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Repository.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Repositories\EasyOpc.WinService.Modules.Opc.Da.Repositories.csproj">
+      <Project>{F7016678-5AA7-48A1-95AE-7BC6AA6EE088}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Repositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Repository\EasyOpc.WinService.Modules.Opc.Repository.csproj">
-      <Project>{75961F85-3A94-40A3-9B80-9574D053CE4B}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Repository</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Services.Contracts\EasyOpc.WinService.Modules.Opc.Da.Services.Contracts.csproj">
+      <Project>{E545A1EA-CED0-4666-BA2B-52B67472425E}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Services.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service.Contract\EasyOpc.WinService.Modules.Opc.Service.Contract.csproj">
-      <Project>{86b8b12a-c4b0-43d3-b7ed-ef15d17bf051}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Service.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Services.Models\EasyOpc.WinService.Modules.Opc.Da.Services.Models.csproj">
+      <Project>{78B0A735-4341-4389-B97C-2734A0CA2363}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Services.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service.Model\EasyOpc.WinService.Modules.Opc.Service.Model.csproj">
-      <Project>{0A0F2ACA-C288-4EEA-8F6D-2B8A87E15CE6}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Service.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Da\EasyOpc.WinService.Modules.Opc.Da.Services\EasyOpc.WinService.Modules.Opc.Da.Services.csproj">
+      <Project>{9B82B649-71E6-4161-B904-D21835EC957C}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\EasyOpc.WinService.Modules.Opc.Service\EasyOpc.WinService.Modules.Opc.Service.csproj">
-      <Project>{EE13D12C-8EDD-4946-885C-55F4029E7D87}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Service</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Connector.Contract\EasyOpc.WinService.Modules.Opc.Ua.Connector.Contract.csproj">
+      <Project>{FB679C0B-8363-4260-98B8-1F91C30533D9}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Connector.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Workers\EasyOpc.WinService.Modules.Opc.Workers.Export\EasyOpc.WinService.Modules.Opc.Workers.Export.csproj">
-      <Project>{b4a0651e-bf80-425b-8918-d04076fe681f}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Workers.Export</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Connector\EasyOpc.WinService.Modules.Opc.Ua.Connector.csproj">
+      <Project>{70D1B04E-8130-4808-B644-5ACD39C20C52}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Connector</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc\Workers\EasyOpc.WinService.Modules.Opc.Workers.History\EasyOpc.WinService.Modules.Opc.Workers.History.csproj">
-      <Project>{ac9b0f4f-6362-4434-aec4-2a2e01da32e6}</Project>
-      <Name>EasyOpc.WinService.Modules.Opc.Workers.History</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Repositories.Contracts\EasyOpc.WinService.Modules.Opc.Ua.Repositories.Contracts.csproj">
+      <Project>{2FA4C48F-8DFE-484D-9EA2-70F49D76F4C4}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Repositories.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository.Contract\EasyOpc.WinService.Modules.Setting.Repository.Contract.csproj">
-      <Project>{D0EF547B-C437-4E6A-B332-2F63789D5AAB}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Repository.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Repositories.Models\EasyOpc.WinService.Modules.Opc.Ua.Repositories.Models.csproj">
+      <Project>{19B059BB-B313-4961-9430-80B7106E3F00}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Repositories.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository.Model\EasyOpc.WinService.Modules.Setting.Repository.Model.csproj">
-      <Project>{2915744D-7FED-4EC1-9F04-64540A3C9C2B}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Repository.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Repositories\EasyOpc.WinService.Modules.Opc.Ua.Repositories.csproj">
+      <Project>{D4A268F3-D91A-4896-B63B-C847DB9FDF78}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Repositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Repository\EasyOpc.WinService.Modules.Setting.Repository.csproj">
-      <Project>{548AB2BD-3DB7-4745-819C-1EA0A2575FB4}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Repository</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Services.Contracts\EasyOpc.WinService.Modules.Opc.Ua.Services.Contracts.csproj">
+      <Project>{0C904377-FAB3-46EB-8A8E-5052C2180B08}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Services.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service.Contract\EasyOpc.WinService.Modules.Setting.Service.Contract.csproj">
-      <Project>{6283CDC4-20C0-4515-850D-9EDA52D60E0E}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Service.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Services.Models\EasyOpc.WinService.Modules.Opc.Ua.Services.Models.csproj">
+      <Project>{6C447D8C-C3A0-4B7A-8540-CACB5B1D022E}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Services.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service.Model\EasyOpc.WinService.Modules.Setting.Service.Model.csproj">
-      <Project>{C6DD8BBD-39CF-46E8-96D3-C0CEF0AFCB5E}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Service.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Opc.Ua\EasyOpc.WinService.Modules.Opc.Ua.Services\EasyOpc.WinService.Modules.Opc.Ua.Services.csproj">
+      <Project>{727FDE41-0351-4AFD-8DA9-6281633DE090}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Ua.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Setting\EasyOpc.WinService.Modules.Setting.Service\EasyOpc.WinService.Modules.Setting.Service.csproj">
-      <Project>{5F7BE8B2-6931-418E-AC0E-44E99F97B2CB}</Project>
-      <Name>EasyOpc.WinService.Modules.Setting.Service</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Repositories.Contracts\EasyOpc.WinService.Modules.Settings.Repositories.Contracts.csproj">
+      <Project>{13012883-F184-44F6-A2D8-E8355EA73597}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository.Contract\EasyOpc.WinService.Modules.Work.Repository.Contract.csproj">
-      <Project>{B6EB6BA9-41A3-4621-9556-6996717480E9}</Project>
-      <Name>EasyOpc.WinService.Modules.Work.Repository.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Repositories.Models\EasyOpc.WinService.Modules.Settings.Repositories.Models.csproj">
+      <Project>{24759ADA-7F5B-4F63-8F7C-300583AF8493}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository.Model\EasyOpc.WinService.Modules.Work.Repository.Model.csproj">
-      <Project>{2C35BF53-07B6-466C-9438-F491EC491DA0}</Project>
-      <Name>EasyOpc.WinService.Modules.Work.Repository.Model</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Repositories\EasyOpc.WinService.Modules.Settings.Repositories.csproj">
+      <Project>{DD0B72D0-8511-4937-8EC6-61749BF9FB79}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Repository\EasyOpc.WinService.Modules.Work.Repository.csproj">
-      <Project>{4BF30EC4-A75E-4BC9-8D3F-85B694F5C722}</Project>
-      <Name>EasyOpc.WinService.Modules.Work.Repository</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Services.Contracts\EasyOpc.WinService.Modules.Settings.Services.Contracts.csproj">
+      <Project>{676B2FE2-4AFE-4D93-8E7D-34FF166A5E28}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Service.Contract\EasyOpc.WinService.Modules.Work.Service.Contract.csproj">
-      <Project>{39958A18-4AB7-4C09-9F9F-0BB7D8337B4B}</Project>
-      <Name>EasyOpc.WinService.Modules.Work.Service.Contract</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Services.Models\EasyOpc.WinService.Modules.Settings.Services.Models.csproj">
+      <Project>{1EADB7CD-13D1-4A3D-8F6B-BBDAA8D21BDF}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyOpc.WinService.Modules\Work\EasyOpc.WinService.Modules.Work.Service\EasyOpc.WinService.Modules.Work.Service.csproj">
-      <Project>{DF79100C-09FE-4368-86AD-6D87F1C65967}</Project>
-      <Name>EasyOpc.WinService.Modules.Work.Service</Name>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Services\EasyOpc.WinService.Modules.Settings.Services.csproj">
+      <Project>{F275554E-9125-4DE4-BF81-4A9A74194170}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

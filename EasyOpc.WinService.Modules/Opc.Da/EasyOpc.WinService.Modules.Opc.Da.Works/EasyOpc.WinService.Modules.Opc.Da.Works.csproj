@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{515B7EC0-48A0-41EE-9054-39FD7F0316E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EasyOpc.WinService.Modules.Opc.Da.Works</RootNamespace>
+    <AssemblyName>EasyOpc.WinService.Modules.Opc.Da.Works</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExportToFileWorkSettings.cs" />
+    <Compile Include="ExportToFileWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscritionToFileWork.cs" />
+    <Compile Include="SubscritionToFileWorkSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EasyOpc.Common\EasyOpc.Common.Constants\EasyOpc.Common.Constants.csproj">
+      <Project>{0EA48A38-F5C6-444F-A681-D30932F6D761}</Project>
+      <Name>EasyOpc.Common.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.Common\EasyOpc.Common.Helpers\EasyOpc.Common.Helpers.csproj">
+      <Project>{C698F33B-A913-42D6-BFE8-19F68DCC6C5E}</Project>
+      <Name>EasyOpc.Common.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Logger.Contract\EasyOpc.WinService.Core.Logger.Contract.csproj">
+      <Project>{BBAB743C-D9D4-4415-A143-83EE82F72F9F}</Project>
+      <Name>EasyOpc.WinService.Core.Logger.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Service.Base\EasyOpc.WinService.Core.Service.Base.csproj">
+      <Project>{75B850CB-E05E-402D-B291-D6CAA8E9F215}</Project>
+      <Name>EasyOpc.WinService.Core.Service.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.WorksService.Contract\EasyOpc.WinService.Core.WorksService.Contract.csproj">
+      <Project>{21ED35A8-1B66-4CBD-B777-C8B29C7D23C5}</Project>
+      <Name>EasyOpc.WinService.Core.WorksService.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Opc.Da.Connector.Contract\EasyOpc.WinService.Modules.Opc.Da.Connector.Contract.csproj">
+      <Project>{9D2014F0-60FC-481E-A111-4A00671CA640}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Connector.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Opc.Da.Connector\EasyOpc.WinService.Modules.Opc.Da.Connector.csproj">
+      <Project>{A1B7265C-1354-4ACB-BA46-F119D894F8C5}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Connector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Opc.Da.Services.Contracts\EasyOpc.WinService.Modules.Opc.Da.Services.Contracts.csproj">
+      <Project>{E545A1EA-CED0-4666-BA2B-52B67472425E}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Opc.Da.Services.Models\EasyOpc.WinService.Modules.Opc.Da.Services.Models.csproj">
+      <Project>{78B0A735-4341-4389-B97C-2734A0CA2363}</Project>
+      <Name>EasyOpc.WinService.Modules.Opc.Da.Services.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

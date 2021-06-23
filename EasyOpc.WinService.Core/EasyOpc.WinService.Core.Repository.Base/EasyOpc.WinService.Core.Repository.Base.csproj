@@ -98,9 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EasyOpc.Common\EasyOpc.Common.Extension\EasyOpc.Common.Extension.csproj">
-      <Project>{9207A7F1-DE32-483D-BD12-BF96DD6BBCAE}</Project>
-      <Name>EasyOpc.Common.Extension</Name>
+    <ProjectReference Include="..\..\EasyOpc.Common\EasyOpc.Common.Extensions\EasyOpc.Common.Extensions.csproj">
+      <Project>{08B28D75-DCD2-4C96-8D76-6491563C7CEF}</Project>
+      <Name>EasyOpc.Common.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\EasyOpc.Common\EasyOpc.Common.Types\EasyOpc.Common.Types.csproj">
       <Project>{3bbf7140-6c8a-4314-aa50-3fb871a33eb1}</Project>

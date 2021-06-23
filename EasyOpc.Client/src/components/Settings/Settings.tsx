@@ -1,12 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import StorageIcon from "@material-ui/icons/Storage";
 import { AppState } from "../../store/store";
 
 const useStyles = makeStyles({

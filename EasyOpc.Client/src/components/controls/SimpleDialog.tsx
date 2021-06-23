@@ -74,7 +74,7 @@ export type SimpleDialogProps = PropsWithChildren<{
   cancelHandle: () => void;
 }>;
 
-export const SimpleDialog: FC<SimpleDialogProps> = (props) => {
+export const SimpleDialog = (props:SimpleDialogProps) => {
   const dialogStyle = { padding: 0 };
   return (
     <Dialog

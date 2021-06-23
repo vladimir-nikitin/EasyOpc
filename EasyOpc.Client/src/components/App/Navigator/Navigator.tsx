@@ -15,15 +15,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import { Omit } from "@material-ui/types";
 import { useDispatch, useSelector } from "react-redux";
+import { Settings } from "./Settings";
+import { Logs } from "./Logs";
 import { AppState } from "../../../store/store";
-import { loadOpcServers } from "../../../functions/opc";
-import { OPC_DA_TYPE, OPC_UA_TYPE } from "../../../constans/opc";
-import Settings  from "./Settings";
-import Logs from "./Logs";
-import OpcServers from "./OpcServers";
-import AddOpcDaServerModal from "../../Opc/AddOpcDaServerModal/AddOpcDaServerModal";
-import AddOpcUaServerModal from "../../Opc/AddOpcUaServerModal/AddOpcUaServerModal";
-import { opcServersSelector } from "../../../store/opcSliceSelectors";
+import { opcDaServersSelector } from "../../../store/opcDaSlice.selectors";
+import { opcUaServersSelector } from "../../../store/opcUaSlice.selectors";
+import { OpcDaServers } from "./OpcDaServers/OpcDaServers";
+import { OpcUaServers } from "./OpcUaServers/OpcUaServers";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -70,26 +68,13 @@ const styles = (theme: Theme) =>
     },
   });
 
-export interface NavigatorProps
-  extends Omit<DrawerProps, "classes">,
-    WithStyles<typeof styles> {}
+type NavigatorProps = Omit<DrawerProps, "classes"> & WithStyles<typeof styles>;
 
-function Navigator(props: NavigatorProps) {
+export const Navigator = withStyles(styles)((props: NavigatorProps) => {
   console.log(`[App][Navigator] mount component`);
 
   const { classes, ...other } = props;
   const dispath = useDispatch();
-
-  const opcServers = opcServersSelector((state: AppState) => state.opc.opcServers);
-
-  useEffect(() => {
-    if (opcServers == null) {
-      dispath(loadOpcServers());
-    }
-  }, []);
-
-  const [showAddDaServerModal, setShowAddDaServerModal] = useState(false);
-  const [showAddUaServerModal, setShowAddUaServerModal] = useState(false);
 
   const categoryHeaderPrimary = { primary: classes.categoryHeaderPrimary, }
   const itemPrimary = { primary: classes.itemPrimary, }
@@ -110,22 +95,10 @@ function Navigator(props: NavigatorProps) {
             Home
           </ListItemText>
         </ListItem>
-        {opcServers && (
-          <OpcServers
-            type={OPC_DA_TYPE}
-            servers={opcServers.filter((s) => s.type === OPC_DA_TYPE)}
-            addClickHandle={() => setShowAddDaServerModal(true)}
-            {...props}
-          />
-        )}
-        {opcServers && (
-          <OpcServers
-            type={OPC_UA_TYPE}
-            servers={opcServers.filter((s) => s.type === OPC_UA_TYPE)}
-            addClickHandle={() => setShowAddUaServerModal(true)}
-            {...props}
-          />
-        )}
+        
+        <OpcDaServers classes={classes} />
+        <OpcUaServers classes={classes} />
+        
         <React.Fragment key={"Main"}>
           <ListItem className={classes.categoryHeader}>
             <ListItemText classes={categoryHeaderPrimary}>
@@ -136,13 +109,7 @@ function Navigator(props: NavigatorProps) {
           <Logs {...props} />
           <Divider className={classes.divider} />
         </React.Fragment>
-      </List>
-
-      {showAddDaServerModal && <AddOpcDaServerModal isOpen cancelHandle={() => setShowAddDaServerModal(false)} />}
-      {showAddUaServerModal && <AddOpcUaServerModal isOpen cancelHandle={() => setShowAddUaServerModal(false)} />}
-      
+      </List>     
     </Drawer>
   );
-}
-
-export default withStyles(styles)(Navigator);
+});

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD0B72D0-8511-4937-8EC6-61749BF9FB79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EasyOpc.WinService.Modules.Settings.Repositories</RootNamespace>
+    <AssemblyName>EasyOpc.WinService.Modules.Settings.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataBaseContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EasyOpc.Common\EasyOpc.Common.Types\EasyOpc.Common.Types.csproj">
+      <Project>{3BBF7140-6C8A-4314-AA50-3FB871A33EB1}</Project>
+      <Name>EasyOpc.Common.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Configuration.Contract\EasyOpc.WinService.Core.Configuration.Contract.csproj">
+      <Project>{C99F41BD-2AEE-4539-9EEE-A71AA5DBC8BD}</Project>
+      <Name>EasyOpc.WinService.Core.Configuration.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Logger.Contract\EasyOpc.WinService.Core.Logger.Contract.csproj">
+      <Project>{BBAB743C-D9D4-4415-A143-83EE82F72F9F}</Project>
+      <Name>EasyOpc.WinService.Core.Logger.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Repository.Base\EasyOpc.WinService.Core.Repository.Base.csproj">
+      <Project>{E74C293B-B709-4514-8289-3341EC70C053}</Project>
+      <Name>EasyOpc.WinService.Core.Repository.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EasyOpc.WinService.Core\EasyOpc.WinService.Core.Repository.Model\EasyOpc.WinService.Core.Repository.Model.csproj">
+      <Project>{E224C25C-D0A6-4F2A-8416-1901FA9A74E7}</Project>
+      <Name>EasyOpc.WinService.Core.Repository.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Repositories.Contracts\EasyOpc.WinService.Modules.Settings.Repositories.Contracts.csproj">
+      <Project>{13012883-F184-44F6-A2D8-E8355EA73597}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Modules.Settings.Repositories.Models\EasyOpc.WinService.Modules.Settings.Repositories.Models.csproj">
+      <Project>{24759ADA-7F5B-4F63-8F7C-300583AF8493}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Repositories.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

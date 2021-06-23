@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using EasyOpc.Common.Constant;
+using EasyOpc.Common.Constants;
 using EasyOpc.Contract.Setting;
 using EasyOpc.WinService.Core.Logger.Contract;
-using EasyOpc.WinService.Modules.Setting.Service.Contract;
+using EasyOpc.WinService.Modules.Settings.Services.Contracts;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -12,15 +12,15 @@ namespace EasyOpc.WinService.Controllers
     [RoutePrefix("api/settings")]
     public class SettingsController : ApiController
     {
-        private ISettingService SettingService { get; }
+        private ISettingsService SettingsService { get; }
 
         private ILogger Logger { get; }
 
         private IMapper Mapper { get; }
 
-        public SettingsController(ISettingService settingService, ILogger logger, IMapper mapper)
+        public SettingsController(ISettingsService settingsService, ILogger logger, IMapper mapper)
         {
-            SettingService = settingService;
+            SettingsService = settingsService;
             Logger = logger;
             Mapper = mapper;
         }
@@ -31,7 +31,7 @@ namespace EasyOpc.WinService.Controllers
         {
             try
             {
-                return Mapper.Map<SettingData>(await SettingService.GetByNameAsync(settingName));
+                return Mapper.Map<SettingData>(await SettingsService.GetByNameAsync(settingName));
             }
             catch (Exception ex)
             {
@@ -46,9 +46,9 @@ namespace EasyOpc.WinService.Controllers
         {
             try
             {
-                var setting = await SettingService.GetByNameAsync(settingName);
+                var setting = await SettingsService.GetByNameAsync(settingName);
                 setting.Value = value;
-                await SettingService.UpdateAsync(setting);
+                await SettingsService.UpdateAsync(setting);
 
                 if(setting.Name == WellKnownCodes.LogFilePathSettingName)
                 {

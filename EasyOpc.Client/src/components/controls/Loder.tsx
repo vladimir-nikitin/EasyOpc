@@ -17,11 +17,15 @@ const useStyles = makeStyles({
   }
 });
 
-export const Loader: FC<{ show: boolean }> = ({ show }) => {
-  const classes = useStyles();
-  useEffect(() => {}, [show]);
+type LoaderProps = { 
+  show: boolean 
+}
 
-  if (!show) return null;
+export const Loader = (props: LoaderProps) => {
+  const classes = useStyles();
+  useEffect(() => {}, [props.show]);
+
+  if (!props.show) return null;
 
   return (
     <div className={classes.container}>

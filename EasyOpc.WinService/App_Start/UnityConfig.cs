@@ -7,39 +7,41 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Unity;
 using Unity.WebApi;
-using EasyOpc.WinService.Modules.Opc.Connectors.Da;
-using EasyOpc.WinService.Modules.Opc.Connectors.Ua;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNet.SignalR;
 using System.Reflection;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using System;
-using EasyOpc.WinService.Modules.Opc.Repository.Contract;
-using EasyOpc.WinService.Modules.Opc.Repository;
-using EasyOpc.WinService.Modules.Opc.Service;
-using EasyOpc.WinService.Modules.Opc.Service.Contract;
-using ExportWorker = EasyOpc.WinService.Modules.Opc.Workers.Export.Worker;
-using HistoryWorker = EasyOpc.WinService.Modules.Opc.Workers.History.Worker;
-using EasyOpc.WinService.Modules.Setting.Repository.Contract;
-using EasyOpc.WinService.Modules.Setting.Service.Contract;
-using EasyOpc.WinService.Modules.Setting.Repository;
-using EasyOpc.WinService.Modules.Setting.Service;
-using Unity.Injection;
-using EasyOpc.WinService.Modules.Work.Repository.Contract;
-using EasyOpc.WinService.Modules.Work.Repository;
-using EasyOpc.WinService.Modules.Work.Service.Contract;
-using EasyOpc.WinService.Modules.Work.Service;
-using EasyOpc.WinService.Modules.Opc.Repository.Model;
-using EasyOpc.Contracts.Opc;
-using EasyOpc.Common.Opc;
-using EasyOpc.WinService.Modules.Setting.Repository.Model;
 using EasyOpc.Contract.Setting;
-using EasyOpc.WinService.Modules.Work.Repository.Model;
-using EasyOpc.Contracts.Works;
-using EasyOpc.WinService.Modules.Setting.Service.Model;
-using EasyOpc.WinService.Modules.Opc.Service.Model;
-using EasyOpc.WinService.Core.Worker.Model;
+using EasyOpc.Common.Constants;
+using EasyOpc.WinService.Modules.Settings.Repositories.Contracts;
+using EasyOpc.WinService.Modules.Settings.Repositories;
+using EasyOpc.WinService.Modules.Settings.Services.Contracts;
+using EasyOpc.WinService.Modules.Settings.Services;
+using Unity.Injection;
+using EasyOpc.WinService.Modules.Opc.Da.Repositories.Models;
+using EasyOpc.WinService.Modules.Settings.Repositories.Models;
+using EasyOpc.WinService.Modules.Settings.Services.Models;
+using EasyOpc.WinService.Modules.Opc.Da.Services.Models;
+using EasyOpc.Contracts.Opc.Da;
+using EasyOpc.WinService.Modules.Opc.Ua.Repositories.Models;
+using EasyOpc.WinService.Modules.Opc.Ua.Services.Models;
+using EasyOpc.Contracts.Opc.Ua;
+using EasyOpc.WinService.Modules.Opc.Da.Connector;
+using EasyOpc.WinService.Modules.Opc.Da.Connector.Contract;
+using EasyOpc.WinService.Modules.Opc.Da.Repositories.Contracts;
+using EasyOpc.WinService.Modules.Opc.Da.Repositories;
+using EasyOpc.WinService.Modules.Opc.Da.Services.Contracts;
+using EasyOpc.WinService.Modules.Opc.Da.Services;
+using EasyOpc.WinService.Modules.Opc.Ua.Connector.Contract;
+using EasyOpc.WinService.Modules.Opc.Ua.Connector;
+using EasyOpc.WinService.Modules.Opc.Ua.Repositories.Contracts;
+using EasyOpc.WinService.Modules.Opc.Ua.Services.Contracts;
+using EasyOpc.WinService.Modules.Opc.Ua.Repositories;
+using EasyOpc.WinService.Modules.Opc.Ua.Services;
+using EasyOpc.WinService.Core.WorksExecutionService;
+using EasyOpc.WinService.Core.WorksExecutionService.Contract;
 
 namespace EasyOpc.WinService
 {
@@ -74,7 +76,6 @@ namespace EasyOpc.WinService
         public static void RegisterComponents()
         {
             var container = new UnityContainer();
-
             IConfiguration configuration = new Configuration(new Dictionary<string, string>
             {
                 { ConfigurationKeys.ConnectionString, "DbContext" }
@@ -87,35 +88,50 @@ namespace EasyOpc.WinService
             container.RegisterInstance<ILogger>(logger);
             container.RegisterInstance(configuration);
 
-            //OPC
-            container.RegisterInstance(container.Resolve<OpcDaServerFactory>());
-            container.RegisterInstance(container.Resolve<OpcUaServerFactory>());
-
-            container.RegisterType<IOpcServerRepository, OpcServerRepository>();
-            container.RegisterType<IOpcGroupRepository, OpcGroupRepository>();
-            container.RegisterType<IOpcItemRepository, OpcItemRepository>();
-
-            container.RegisterFactory<IOpcServerService>((c) =>
-                new OpcServerService(container.Resolve<OpcDaServerFactory>(), container.Resolve<OpcUaServerFactory>(),
-                container.Resolve<IOpcServerRepository>(), container.Resolve<IOpcGroupService>(),
-                container.Resolve<IOpcItemService>(), mapper, logger));
-
-            container.RegisterFactory<IOpcGroupService>((c) => new OpcGroupService(container.Resolve<IOpcItemService>(),
-                container.Resolve<IOpcGroupRepository>(), mapper, logger));
-
-            container.RegisterFactory<IOpcItemService>((c) => new OpcItemService(container.Resolve<IOpcItemRepository>(), mapper, logger));
-
-            container.RegisterType<ExportWorker>();
-            container.RegisterType<HistoryWorker>();
-
             //SETTINGS
-            container.RegisterType<ISettingRepository, SettingRepository>();
-            container.RegisterType<ISettingService, SettingService>(new InjectionConstructor(container.Resolve<ISettingRepository>(), mapper, logger));
+            container.RegisterType<ISettingsRepository, SettingsRepository>();
+            container.RegisterType<ISettingsService, SettingsService>(new InjectionConstructor(container.Resolve<ISettingsRepository>(), mapper, logger));
 
-            //WORKS
-            container.RegisterType<IWorkRepository, WorkRepository>();
-            container.RegisterType<IWorkService, WorkService>(new InjectionConstructor(container.Resolve<IWorkRepository>(), mapper, logger));
-            container.RegisterInstance<IWorkExecutionService>(container.Resolve<WorkExecutionService>());
+            try
+            {
+                var logFilePathSetting = container.Resolve<ISettingsService>().GetByNameAsync(WellKnownCodes.LogFilePathSettingName).GetAwaiter().GetResult();
+                if (logFilePathSetting != null)
+                {
+                    logger.SetLogFilePath(logFilePathSetting.Value);
+                }
+            }
+            catch { }
+
+            //OPC.DA
+            container.RegisterInstance((IOpcDaServersFactory)container.Resolve<OpcDaServersFactory>());
+
+            container.RegisterType<IOpcDaServersRepository, OpcDaServersRepository>();
+            container.RegisterType<IOpcDaGroupsRepository, OpcDaGroupsRepository>();
+            container.RegisterType<IOpcDaItemsRepository, OpcDaItemsRepository>();
+            container.RegisterType<IOpcDaGroupWorksRepository, OpcDaGroupWorksRepository>();
+
+            container.RegisterType<IOpcDaItemsService, OpcDaItemsService>();
+            container.RegisterType<IOpcDaGroupsService, OpcDaGroupsService>();
+            container.RegisterType<IOpcDaServersService, OpcDaServersService>();
+            container.RegisterType<IOpcDaGroupWorksService, OpcDaGroupWorksService>();
+
+            //OPC.UA
+            container.RegisterInstance((IOpcUaServersFactory)container.Resolve<OpcUaServersFactory>());
+
+            container.RegisterType<IOpcUaServersRepository, OpcUaServersRepository>();
+            container.RegisterType<IOpcUaGroupsRepository, OpcUaGroupsRepository>();
+            container.RegisterType<IOpcUaItemsRepository, OpcUaItemsRepository>();
+            container.RegisterType<IOpcUaGroupWorksRepository, OpcUaGroupWorksRepository>();
+
+            container.RegisterType<IOpcUaItemsService, OpcUaItemsService>();
+            container.RegisterType<IOpcUaGroupsService, OpcUaGroupsService>();
+            container.RegisterType<IOpcUaServersService, OpcUaServersService>();
+            container.RegisterType<IOpcUaGroupWorksService, OpcUaGroupWorksService>();
+
+            var worksExecutionService = new WorksExecutionService(container.Resolve<ISettingsService>());
+            worksExecutionService.RegisterSource(container.Resolve<IOpcDaGroupWorksService>());
+            worksExecutionService.RegisterSource(container.Resolve<IOpcUaGroupWorksService>());
+            container.RegisterInstance<IWorksExecutionService>(worksExecutionService);
 
             var settings = new JsonSerializerSettings();
             settings.ContractResolver = new SignalRContractResolver();
@@ -123,6 +139,16 @@ namespace EasyOpc.WinService
 
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+         
+            try
+            {
+                var serviceModeSetting = container.Resolve<ISettingsService>().GetByNameAsync(WellKnownCodes.ServiceModeSettingName).GetAwaiter().GetResult();
+                if (serviceModeSetting != null && serviceModeSetting.Value?.ToLower() == "false")
+                {
+                    worksExecutionService.StartAsync();
+                }
+            }
+            catch { }
         }
 
         /// <summary>
@@ -132,30 +158,36 @@ namespace EasyOpc.WinService
         {
             cfg.AllowNullCollections = true;
 
-            cfg.CreateMap<OpcServerDto, OpcServer>().ReverseMap();
+            cfg.CreateMap<OpcDaServerDto, Modules.Opc.Da.Services.Models.OpcDaServer>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Da.Services.Models.OpcDaServer, OpcDaServerData>().ReverseMap();
 
-            cfg.CreateMap<OpcServer, OpcServerData>()
-                .ForMember(p => p.Type, opt => opt.Ignore())
-                .AfterMap((src, dest) => dest.Type = src.Type == OpcServerType.DA ? OpcWellKnownCodes.OPC_DA_TYPE : OpcWellKnownCodes.OPC_UA_TYPE);
+            cfg.CreateMap<OpcDaGroupDto, Modules.Opc.Da.Services.Models.OpcDaGroup>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Da.Services.Models.OpcDaGroup, OpcDaGroupData>().ReverseMap();
 
-            cfg.CreateMap<OpcServerData, OpcServer>()
-                .ForMember(p => p.Type, opt => opt.Ignore())
-                .AfterMap((src, dest) => dest.Type = src.Type == OpcWellKnownCodes.OPC_DA_TYPE ? OpcServerType.DA : OpcServerType.UA);
+            cfg.CreateMap<OpcDaGroupWorkDto, OpcDaGroupWork>().ReverseMap();
+            cfg.CreateMap<OpcDaGroupWork, OpcDaGroupWorkData>().ReverseMap();
 
-            cfg.CreateMap<OpcGroupDto, OpcGroup>().ReverseMap();
-            cfg.CreateMap<OpcGroup, OpcGroupData>().ReverseMap();
+            cfg.CreateMap<OpcDaItemDto, Modules.Opc.Da.Services.Models.OpcDaItem>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Da.Services.Models.OpcDaItem, OpcDaItemData>().ReverseMap();
 
-            cfg.CreateMap<DiscoveryItem, DiscoveryItemData>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Da.Services.Models.DiscoveryItem, Contracts.Opc.Da.DiscoveryItemData>().ReverseMap();
 
-            cfg.CreateMap<OpcItemDto, OpcItem>().ReverseMap();
-            cfg.CreateMap<OpcItem, OpcItemData>().ReverseMap();
+            cfg.CreateMap<OpcUaServerDto, Modules.Opc.Ua.Services.Models.OpcUaServer>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Ua.Services.Models.OpcUaServer, OpcUaServerData>().ReverseMap();
+
+            cfg.CreateMap<OpcUaGroupDto, Modules.Opc.Ua.Services.Models.OpcUaGroup>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Ua.Services.Models.OpcUaGroup, OpcUaGroupData>().ReverseMap();
+
+            cfg.CreateMap<OpcUaGroupWorkDto, OpcUaGroupWork>().ReverseMap();
+            cfg.CreateMap<OpcUaGroupWork, OpcUaGroupWorkData>().ReverseMap();
+
+            cfg.CreateMap<OpcUaItemDto, Modules.Opc.Ua.Services.Models.OpcUaItem>().ReverseMap();
+            cfg.CreateMap<Modules.Opc.Ua.Services.Models.OpcUaItem, OpcUaItemData>().ReverseMap();
+
+            cfg.CreateMap<Modules.Opc.Ua.Services.Models.DiscoveryItem, Contracts.Opc.Ua.DiscoveryItemData>().ReverseMap();
 
             cfg.CreateMap<SettingDto, Setting>().ReverseMap();
-            cfg.CreateMap<Setting, SettingData>().ReverseMap();
-
-            cfg.CreateMap<WorkDto, Work>().ReverseMap();
-            cfg.CreateMap<Work, WorkData>().ReverseMap();
-           
+            cfg.CreateMap<Setting, SettingData>().ReverseMap();          
         }));
     }
 }

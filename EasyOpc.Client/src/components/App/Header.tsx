@@ -25,13 +25,12 @@ import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import { openUrl } from "../../functions/common";
 import {
   HELP_URL,
-  LOGS_TYPE,
-  SETTINGS_TYPE,
   SITE_URL,
 } from "../../constans/common";
-import { OPC_GROUP_TYPE, OPC_SERVER_TYPE } from "../../constans/opc";
 import { PlayArrow, Stop } from "@material-ui/icons";
 import { changeServiceMode } from "../../functions/app";
+import { SETTINGS_TYPE } from "../../constans/settings";
+import { LOGS_TYPE } from "../../constans/logs";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -62,10 +61,9 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface HeaderProps extends WithStyles<typeof styles> {
-}
+type HeaderProps = WithStyles<typeof styles>;
 
-function Header(props: HeaderProps) {
+export const Header = withStyles(styles)((props: HeaderProps) => {
   const { classes } = props;
   const dispatch = useDispatch();
 
@@ -74,12 +72,6 @@ function Header(props: HeaderProps) {
 
   useEffect(() => {
     switch (selectedItem?.type) {
-      case OPC_SERVER_TYPE:
-        setHeaderText(selectedItem.item.name);
-        break;
-      case OPC_GROUP_TYPE:
-        setHeaderText(selectedItem.item.name);
-        break;
       case SETTINGS_TYPE:
         setHeaderText(SETTINGS_TYPE);
         break;
@@ -190,6 +182,4 @@ function Header(props: HeaderProps) {
       </AppBar>
     </React.Fragment>
   );
-}
-
-export default withStyles(styles)(Header);
+});

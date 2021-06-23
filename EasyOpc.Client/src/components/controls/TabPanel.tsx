@@ -1,6 +1,6 @@
 import React from "react";
 
-interface TabPanelProps {
+type TabPanelProps = {
   children?: React.ReactNode;
   index: any;
   value: any;
@@ -11,8 +11,8 @@ export const TabPanel = (props: TabPanelProps) => {
   const tabPanelStyle = {
     flexGrow: 1,
     display: "flex",
-    height: "500px",
     margin: "20px 20px 0 20px",
+    overflow: "hidden"
   };
 
   return value === index ? (

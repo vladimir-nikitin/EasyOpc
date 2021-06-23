@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { api } from "../api/api";
-import { SERVICE_MODE_SETTING_NAME } from "../constans/common";
+import { SERVICE_MODE_SETTING_NAME } from "../constans/settings";
 import { setIsInit, setServiceMode, showAppLoader } from "../store/windowSlice";
 
 export const initApp = () => {
@@ -9,7 +9,7 @@ export const initApp = () => {
 
         while(true){
             try{
-                const serviceModeSetting = await api.setting.getByNameAsync(SERVICE_MODE_SETTING_NAME);
+                const serviceModeSetting = await api.settings.getByNameAsync(SERVICE_MODE_SETTING_NAME);
                 console.log(`serviceModeSetting:`)
                 console.log(serviceModeSetting)
 
@@ -37,10 +37,10 @@ export const changeServiceMode = (serviceMode: boolean) => {
         dispatch(showAppLoader(true));
 
         if(serviceMode){
-            await api.work.setWorkExecutionModeAsync("stop");
+            await api.works.setWorkExecutionModeAsync("stop");
         }
         else{
-            await api.work.setWorkExecutionModeAsync("start");
+            await api.works.setWorkExecutionModeAsync("start");
         }
 
         dispatch(setServiceMode(serviceMode));

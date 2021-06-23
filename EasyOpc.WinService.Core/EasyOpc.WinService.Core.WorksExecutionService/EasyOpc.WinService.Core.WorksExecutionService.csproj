@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02D80280-884D-469F-8654-56ECDAB90CF8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EasyOpc.WinService.Core.WorksExecutionService</RootNamespace>
+    <AssemblyName>EasyOpc.WinService.Core.WorksExecutionService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="WorksExecutionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EasyOpc.Common\EasyOpc.Common.Constants\EasyOpc.Common.Constants.csproj">
+      <Project>{0EA48A38-F5C6-444F-A681-D30932F6D761}</Project>
+      <Name>EasyOpc.Common.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Services.Contracts\EasyOpc.WinService.Modules.Settings.Services.Contracts.csproj">
+      <Project>{676B2FE2-4AFE-4D93-8E7D-34FF166A5E28}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EasyOpc.WinService.Modules\Settings\EasyOpc.WinService.Modules.Settings.Services.Models\EasyOpc.WinService.Modules.Settings.Services.Models.csproj">
+      <Project>{1EADB7CD-13D1-4A3D-8F6B-BBDAA8D21BDF}</Project>
+      <Name>EasyOpc.WinService.Modules.Settings.Services.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core.Service.Base\EasyOpc.WinService.Core.Service.Base.csproj">
+      <Project>{75B850CB-E05E-402D-B291-D6CAA8E9F215}</Project>
+      <Name>EasyOpc.WinService.Core.Service.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core.WorksExecutionService.Contract\EasyOpc.WinService.Core.WorksExecutionService.Contract.csproj">
+      <Project>{4F88776F-570B-4C78-A5FB-04AE90F0E746}</Project>
+      <Name>EasyOpc.WinService.Core.WorksExecutionService.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyOpc.WinService.Core.WorksService.Contract\EasyOpc.WinService.Core.WorksService.Contract.csproj">
+      <Project>{21ED35A8-1B66-4CBD-B777-C8B29C7D23C5}</Project>
+      <Name>EasyOpc.WinService.Core.WorksService.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
