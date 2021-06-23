@@ -1,5 +1,8 @@
 # EasyOPC
 
+Программа для сбора и хранения данных с OPC серверов. 
+Использованные технологии: Electron, React, Redux, redux-thunk, TypeScript, WebPack, SignalR, .NET, C#, Win-service, OWIN, SQLite, Entity Framework,
+
 ![1](https://user-images.githubusercontent.com/60826376/123068687-c9835e00-d41a-11eb-90f3-14e1c54fc758.png)
 
 ![2](https://user-images.githubusercontent.com/60826376/123068812-e7e95980-d41a-11eb-8a6f-2d519e74196c.png)
